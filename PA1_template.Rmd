@@ -18,7 +18,7 @@ dt <- data.table(rawdata)
 ## What is mean total number of steps taken per day?  
 
 
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 
 sums <- dt[,list(sumsteps = as.double(sum(steps, na.rm=TRUE))), by = c("date")]
 hist(sums[,sumsteps], main="Histogram of total steps per day", xlab="Steps")
@@ -32,7 +32,7 @@ The median number of steps per day for this data set is: `r tmedian`
 
 ## What is the average daily activity pattern?  
 
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 intmean <- dt[,list(meansteps = mean(steps, na.rm=TRUE)), by = c("interval")]
 plot(intmean[,interval], intmean[,meansteps],type="l",xlab="Five Minute Interval",ylab="Average Steps",main="Average Steps per Five Minute Interval")
 maxinterval <- intmean[order(-meansteps),interval][1]
@@ -43,7 +43,7 @@ Interval `r maxinterval` has the highest average (mean) number of steps per day 
 
 ## Inputing missing values  
 
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 numna <- sum(is.na(dt))
 ```
 
@@ -51,7 +51,7 @@ There are `r numna` rows containing NA values.
 
 To fill in the missing data, we will use the mean value for the five minute interval for each missing value, rounded to the nearest number of complete steps.  
 
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 steps <- dt[,steps]
 
 for(i in 1:nrow(dt)) {
@@ -75,7 +75,7 @@ The new median number of steps per day for this data set is: `r nmedian`, a delt
 ## Are there differences in activity patterns between weekdays and weekends?  
 
 
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 days <- weekdays(as.Date(dt[,date], format="%Y-%m-%d"))
 dayconv <- function(x) {
   if(x == "Saturday" || x == "Sunday") {
